@@ -1,4 +1,5 @@
 import numpy as np
+import math
 
 
 def sigmoid(x):
@@ -15,17 +16,7 @@ def mse_loss(y_true, y_pred):
   return ((y_true - y_pred) ** 2).mean()
 
 class OurNeuralNetwork:
-  '''
-  A neural network with:
-    - 2 inputs
-    - a hidden layer with 2 neurons (h1, h2)
-    - an output layer with 1 neuron (o1)
 
-  *** DISCLAIMER ***:
-  The code below is intended to be simple and educational, NOT optimal.
-  Real neural net code looks nothing like this. DO NOT use this code.
-  Instead, read/run it to understand how this specific network works.
-  '''
   def __init__(self):
     # Weights
     self.w1 = np.random.normal()
@@ -111,7 +102,7 @@ class OurNeuralNetwork:
       if epoch % 10 == 0:
         y_preds = np.apply_along_axis(self.feedforward, 1, data)
         loss = mse_loss(all_y_trues, y_preds)
-        # print("Epoch %d loss: %.3f" % (epoch, loss))
+        print("Epoch %d loss: %.3f" % (epoch, loss))
 
 # Define dataset
 data = np.array([
@@ -133,5 +124,5 @@ network.train(data, all_y_trues)
 # Make some predictions
 emily = np.array([-10, -3]) # 128 pounds, 63 inches
 frank = np.array([20, 2])  # 155 pounds, 68 inches
-print("Emily: %.3f" % network.feedforward(emily)) # 0.951 - F
-print("Frank: %.3f" % network.feedforward(frank)) # 0.039 - M
+print("Emily: %.4f" % network.feedforward(emily).round()) # 0.951 - F
+print("Frank: %.8f" % network.feedforward(frank).round()) # 0.039 - M
